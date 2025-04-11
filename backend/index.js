@@ -1,6 +1,9 @@
 const express = require('express')
 const dbConnection = require('./lib/db')
 const cors = require('cors')
+const authRoute = require('./routes/authRoutes')
+const userRoute = require('./routes/userRoutes')
+
 
 const app = express();
 
@@ -19,6 +22,10 @@ app.use(express.json())
 app.get('/', (req, res) =>{
     res.send("Home Page")
 })
+
+app.use('/api/auth', authRoute)
+app.use('/api/user', userRoute)
+
 
 
 app.listen(PORT, () =>{
