@@ -3,6 +3,7 @@ const dbConnection = require('./lib/db')
 const cors = require('cors')
 const authRoute = require('./routes/authRoutes')
 const userRoute = require('./routes/userRoutes')
+const postRoute = require('./routes/postRoutes')
 
 
 const app = express();
@@ -24,7 +25,11 @@ app.get('/', (req, res) =>{
 })
 
 app.use('/api/auth', authRoute)
-app.use('/api/user', userRoute)
+app.use('/api/users', userRoute)
+app.use('/api/posts', postRoute)
+
+
+
 
 
 
