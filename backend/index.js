@@ -4,7 +4,7 @@ const cors = require('cors')
 const authRoute = require('./routes/authRoutes')
 const userRoute = require('./routes/userRoutes')
 const postRoute = require('./routes/postRoutes')
-
+const commentRoute = require('./routes/commentRoutes')
 
 const app = express();
 
@@ -27,6 +27,8 @@ app.get('/', (req, res) =>{
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
 app.use('/api/posts', postRoute)
+app.use('/api/comments', commentRoute)
+
 
 
 

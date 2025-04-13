@@ -23,7 +23,7 @@ const createPost = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("author", "fullName, email");
+    const posts = await Post.find().populate("author", "fullName email");
     if (!posts) {
       return res.status(404).json({
         success: false,
@@ -45,7 +45,7 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await Post.findById(id).populate("author", "fullName, email");
+    const post = await Post.findById(id).populate("author", "fullName email");
     if (!post) {
       return res.status(404).json({
         success: false,
