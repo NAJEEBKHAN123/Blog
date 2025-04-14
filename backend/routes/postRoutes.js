@@ -12,7 +12,4 @@ router.put('/update/:id', verifyToken, updatePosts)
 router.delete('/delete/:id', verifyToken, deletePosts)
 
 
-
-
-
 module.exports = router

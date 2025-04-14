@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post('/:postId',verifyToken, addComment)
 router.get('/:postId', getCommentsByPost)
-router.delete('/:id',verifyToken, deleteComments)
+router.delete('/delete/:id',verifyToken, deleteComments)
 
 
 
