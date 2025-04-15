@@ -3,9 +3,12 @@ const Post = require("../model/post.model");
 
 const createPost = async (req, res) => {
   try {
-    const { title, content, image } = req.body;
+    const { title, content } = req.body;
+    const image = req.file ? `/uploads/images/${req.file.filename}` : ''; // Get the image path
 
-    // Use req.user.id instead of req.user._id
+    console.log("Uploaded Image Path:", image); // Log to verify the uploaded file path
+
+    // Create a new post with the image path
     const newPost = new Post({ title, content, image, author: req.user._id });
 
     await newPost.save();
@@ -20,6 +23,8 @@ const createPost = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+
 
 const getAllPosts = async (req, res) => {
   try {

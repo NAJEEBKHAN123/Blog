@@ -30,7 +30,7 @@ function Signup() {
     }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4 pt-24">
     <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
       <h1 className="text-2xl font-bold text-center mb-4">SignUp</h1>
 

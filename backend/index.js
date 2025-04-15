@@ -18,6 +18,9 @@ dbConnection()
 app.use(cors());
 app.use(express.json())
 
+app.use('/uploads/images', express.static('uploads/images'));
+
+
 
 
 app.get('/', (req, res) =>{
