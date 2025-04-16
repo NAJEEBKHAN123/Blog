@@ -15,7 +15,7 @@ const CreatePostForm = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name] : e.target.valu})
+    setFormData({...formData, [e.target.name] : e.target.value})
   };
 
   const handleImageChange = (e) => {
@@ -49,7 +49,7 @@ const CreatePostForm = () => {
     
     // Validate image size (e.g., 5MB max)
     if (formData.image.size > 10 * 1024 * 1024) {
-      setError('Image size should be less than 5MB');
+      setError('Image size should be less than 10MB');
       return false;
     }
     
@@ -81,6 +81,7 @@ const CreatePostForm = () => {
         }
       );
 
+    
       setSuccessMessage('Post created successfully!');
       setTimeout(() => {
         navigate('/'); // Redirect to dashboard after success

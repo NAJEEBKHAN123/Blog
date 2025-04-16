@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns';
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -49,13 +50,9 @@ const PostDetail = () => {
               <span className="text-gray-600 mr-2">Author:</span>
               <span className="font-medium">{post.author?.fullName || 'Unknown'}</span>
               <span className='pl-10 font-bold'>Date:</span>
-              <span className="text-xs text-gray-400 pl-4">
-             {new Date(post.createdAt).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-             })}
-      </span>
+              <span className="text-xs text-gray-400 pl-4" title={new Date(post.createdAt).toLocaleDateString()}>
+            {formatDistanceToNow(new Date(post.createdAt), {addSuffix: true})}
+           </span>
             </div>
             <Link 
               to="/"

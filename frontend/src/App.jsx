@@ -8,6 +8,7 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import CreatePostForm from "./component/CreatePostFrom";
 import PostDetail from "./component/PostDetail";
+import EditPost from "./component/EditPost";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         <Route path="/login" element={<Signin />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/posts/:postId" element={<PostDetail />} />
+        <Route path="/edit-post/:id" element={<EditPost />} />
+
+
 
         <Route
           path="/create-post"
