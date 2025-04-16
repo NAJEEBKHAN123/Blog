@@ -1,5 +1,6 @@
 import React from 'react';
-import Logo from '../assets/Logo.png';
+import Logo from '../assets/code&click.png';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
 
@@ -21,7 +22,7 @@ function Navbar() {
           alt="DevLogics Logo" 
           className='w-12 h-12 object-contain rounded-lg'
         />
-        <span className='font-bold text-lg hidden md:block'>DevLogics</span>
+        <span className='font-bold text-lg hidden md:block'>Code & Clicks</span>
       </Link>
 
       {/* Search + Links */}

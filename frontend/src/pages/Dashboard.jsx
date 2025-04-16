@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
@@ -121,7 +122,12 @@ function Dashboard() {
                 <button onClick={() => handleDelete(post._id)} className="text-red-500 hover:underline">
                   <FaTrash />
                 </button>
+                <Link to={`/posts/${post._id}`}>
+                <FaComment className="text-gray-500 hover:text-blue-500 cursor-pointer" />
+                
+                </Link>
               </div>
+              
             </div>
           ))
         ) : (

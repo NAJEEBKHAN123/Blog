@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
+import CommentSection from './CommentSection';
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -61,6 +62,7 @@ const PostDetail = () => {
               Back to Dashboard
             </Link>
           </div>
+          <CommentSection postId={post._id} />
         </div>
       </div>
     </div>
