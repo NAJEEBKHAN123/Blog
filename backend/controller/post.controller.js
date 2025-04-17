@@ -115,5 +115,53 @@ const deletePosts = async (req, res) => {
     console.log("failed to delete post", error);
   }
 };
+const SearchPostByTitle = async (req, res) => {
+  // Check for title in query parameter (GET request)
+  let { title } = req.query;
+  
+  // If title is not found in query, check the request body (POST request)
+  if (!title && req.body && req.body.title) {
+    title = req.body.title;
+  }
 
-module.exports = { createPost, getAllPosts, getPostById, updatePosts, deletePosts };
+  if (!title) {
+    return res.status(400).json({
+      success: false,
+      message: "Title query parameter is required",
+    });
+  }
+
+  try {
+    // Log for debugging
+    console.log('Searching for title:', title);
+
+    const posts = await Post.find({
+      title: { $regex: new RegExp(title, 'i') } // Case-insensitive search
+    });
+
+    if (posts.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No posts found with that title",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Posts found",
+      data: posts,
+    });
+  } catch (err) {
+    console.error("Error searching posts:", err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+
+
+
+
+module.exports = { createPost, getAllPosts, getPostById, updatePosts, deletePosts, SearchPostByTitle };
