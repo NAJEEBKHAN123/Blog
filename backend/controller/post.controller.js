@@ -4,7 +4,7 @@ const Post = require("../model/post.model");
 const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const image = req.file ? `/uploads/images/${req.file.filename}` : ''; // Get the image path
+    const image = req.file ? `/uploads/images/${req.file.filename}` : ""; // Get the image path
 
     console.log("Uploaded Image Path:", image); // Log to verify the uploaded file path
 
@@ -23,8 +23,6 @@ const createPost = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
-
 
 const getAllPosts = async (req, res) => {
   try {
@@ -71,28 +69,46 @@ const getPostById = async (req, res) => {
 
 const updatePosts = async (req, res) => {
   const { id } = req.params;
+
   try {
-    const updatePost = await Post.findByIdAndUpdate(id, req.body, {
+    const { title, content } = req.body;
+    let image;
+
+    if (req.file) {
+      image = `/uploads/images/${req.file.filename}`;
+    }
+
+    const updateFields = {
+      title,
+      content,
+    };
+
+    if (image) {
+      updateFields.image = image;
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(id, updateFields, {
       new: true,
     });
 
-    if (!updatePost) {
+    if (!updatedPost) {
       return res.status(404).json({
         success: false,
         message: "Post not found",
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
-      message: "post update successfully",
-      data: updatePost,
+      message: "Post updated successfully",
+      data: updatedPost,
     });
   } catch (error) {
+    console.error("Failed to update post:", error);
     res.status(500).json({ success: false, message: "Failed to update post" });
-    console.log("failed to update post", error);
   }
 };
+
 
 const deletePosts = async (req, res) => {
   const { id } = req.params;
@@ -118,7 +134,7 @@ const deletePosts = async (req, res) => {
 const SearchPostByTitle = async (req, res) => {
   // Check for title in query parameter (GET request)
   let { title } = req.query;
-  
+
   // If title is not found in query, check the request body (POST request)
   if (!title && req.body && req.body.title) {
     title = req.body.title;
@@ -132,14 +148,11 @@ const SearchPostByTitle = async (req, res) => {
   }
 
   try {
-    // Log for debugging
-    console.log('Searching for title:', title);
-
-    const posts = await Post.find({
-      title: { $regex: new RegExp(title, 'i') } // Case-insensitive search
+    const postsTitle = await Post.find({
+      title: { $regex: new RegExp(title, "i") }, // Case-insensitive search
     });
 
-    if (posts.length === 0) {
+    if (postsTitle.length === 0) {
       return res.status(404).json({
         success: false,
         message: "No posts found with that title",
@@ -149,7 +162,7 @@ const SearchPostByTitle = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Posts found",
-      data: posts,
+      data: postsTitle,
     });
   } catch (err) {
     console.error("Error searching posts:", err);
@@ -160,8 +173,11 @@ const SearchPostByTitle = async (req, res) => {
   }
 };
 
-
-
-
-
-module.exports = { createPost, getAllPosts, getPostById, updatePosts, deletePosts, SearchPostByTitle };
+module.exports = {
+  createPost,
+  getAllPosts,
+  getPostById,
+  updatePosts,
+  deletePosts,
+  SearchPostByTitle,
+};

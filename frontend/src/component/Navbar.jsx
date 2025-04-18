@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../assets/code&click.png';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
+import {useSearch}  from '../context/SearchContext'
+
+
 
 function Navbar() {
+
+  const { searchQuery, setSearchQuery } = useSearch(); 
+  
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem('token');
 
@@ -22,7 +28,7 @@ function Navbar() {
           alt="DevLogics Logo" 
           className='w-12 h-12 object-contain rounded-lg'
         />
-        <span className='font-bold text-lg hidden md:block'>Code & Clicks</span>
+        <span className='font-bold text-lg hidden md:block'>Code&Clicks</span>
       </Link>
 
       {/* Search + Links */}
@@ -34,6 +40,8 @@ function Navbar() {
             type="text"
             placeholder="Search posts..."
             className="w-full outline-none text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} 
           />
         </div>
 

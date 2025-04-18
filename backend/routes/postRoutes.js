@@ -7,7 +7,7 @@ const router = express.Router()
 
 // Protected routes
 router.post('/create', verifyToken, upload.single('image'), createPost);
-router.put('/update/:id', verifyToken, updatePosts);
+router.put('/update/:id', verifyToken, upload.single('image'), updatePosts);
 router.delete('/delete/:id', verifyToken, deletePosts);
 
 // Public routes (if you want to protect these, add verifyToken)
