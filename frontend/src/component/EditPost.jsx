@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { ClipLoader } from 'react-spinners';
 
 function EditPost() {
   const { id } = useParams();
@@ -19,6 +20,7 @@ function EditPost() {
   // Fetch existing post data
   useEffect(() => {
     const fetchPost = async () => {
+      setLoading(true)
       try {
         const res = await axios.get(`http://localhost:5000/api/posts/getPost/${id}`, {
           headers: {
@@ -90,7 +92,9 @@ function EditPost() {
     }
   };
 
-  if (loading) return <div className="text-center mt-10">Loading post...</div>;
+  if (loading) return <div className="text-center mt-10">
+    <ClipLoader color={"#3B82F6"} loading={true} size={50} />
+  </div>;
 
   return (
     <div className="max-w-3xl mx-auto p-8">

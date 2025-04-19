@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { FaEdit, FaTrash, FaComment } from "react-icons/fa";
 import { useSearch } from "../context/SearchContext";
+import { ClipLoader } from 'react-spinners';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
@@ -12,6 +13,7 @@ function Dashboard() {
   const [error, setError] = useState(null);
   const location = useLocation();
   const { searchQuery } = useSearch();
+   
 
   const fetchPosts = async () => {
     try {
@@ -33,8 +35,8 @@ function Dashboard() {
     }
   };
 
-  useEffect(() => {
-    fetchPosts();
+  useEffect(() => {  
+      fetchPosts();
   }, [location]);
 
   useEffect(() => {
@@ -62,12 +64,20 @@ function Dashboard() {
     }
   };
 
-  if (loading) return <div className="text-center py-8">Loading posts...</div>;
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <ClipLoader color={"#3B82F6"} loading={true} size={50} />
+      </div>
+    );
+  }
+  
   if (error) return <div className="text-center py-8 text-red-500">{error}</div>;
 
   return (
-    <div className="dashboard container mx-auto px-6 lg:px-40 py-8">
+    <div className="dashboard container mx-auto px-6 lg:px-40 py-24">
       <div className="flex justify-between items-center mb-8">
+       
         <h1 className="text-2xl font-bold">Welcome to Your Dashboard</h1>
         <Link
           to="/create-form"
@@ -76,7 +86,6 @@ function Dashboard() {
           Create Post
         </Link>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
@@ -123,14 +132,19 @@ function Dashboard() {
                 </Link>
               </div>
             </div>
+            
           ))
         ) : (
           <div className="col-span-full text-center py-12 text-gray-500">
             No posts found. Try a different search!
           </div>
         )}
+        
       </div>
+       
+  
     </div>
+ 
   );
 }
 
