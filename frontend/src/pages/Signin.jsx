@@ -76,7 +76,7 @@ function Signin() {
 
       <p className="mt-4 text-gray-600 text-center">
         Don't have an account?{' '}
-        <Link to="/" className="text-blue-500 hover:underline">
+        <Link to="/signup" className="text-blue-500 hover:underline">
           Sign Up
         </Link>
       </p>

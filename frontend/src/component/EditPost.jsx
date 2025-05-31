@@ -48,6 +48,7 @@ function EditPost() {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
 
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
